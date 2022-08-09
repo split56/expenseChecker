@@ -6,24 +6,79 @@
 
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-  background-color: #f7f7f7;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  background: rgb(34, 193, 195);
+    background: linear-gradient(45deg, rgba(34, 193, 195, 1) 1%, rgba(146, 190, 119, 1) 58%, rgba(253, 187, 45, 1) 94%);
   min-height: 100vh;
   margin: 0;
   font-family: 'Lato', sans-serif;
+  overflow: hidden;
 }
+.app-Header{
+  margin-left: 2rem;
+}
+.bg-holder{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.glass-bg{
+  height: 650px;
+  background: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
 
+}
+.react-calendar {
+  width: 350px;
+  max-width: 100%;
+  background: transparent !important;
+  border: none !important;
+  position: relative;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, 15%);
+  outline: none;
+  font-family: 'Lato',
+    sans-serif;
+  line-height: 1.125em;
+}
+.react-calendar__tile{
+  border-radius: 5px;
+}
 .container {
   margin: 30px auto;
-  width: 350px;
+  width: 87%;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
 }
-
+.container-left,.container-right{
+  flex: 1;
+  padding: 2rem;
+}
+.trans-list{
+  height: 490px;
+  overflow: hidden;
+}
+.list{
+  height: 100%;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+    /* for Internet Explorer, Edge */
+    scrollbar-width: none;
+}
+.list::-webkit-scrollbar {
+  display: none;
+  /* for Chrome, Safari, and Opera */
+}
 h1 {
   letter-spacing: 1px;
   margin: 0;
@@ -31,22 +86,77 @@ h1 {
 
 h3 {
   border-bottom: 1px solid #bbb;
-  padding-bottom: 10px;
-  margin: 40px 0 10px;
 }
 
 h4 {
   margin: 0;
   text-transform: uppercase;
 }
-
+.history-title{
+  margin: 0;
+}
+.outlet{
+  position: relative;
+  top: 0;
+  left: 0;
+  z-index: -9999;
+}
+.active{
+  width: 10%;
+}
+.active > svg {
+  fill: #333;
+  border-radius: 5px;
+  transition: all .1s linear;
+}
+.active::after{
+  content: '';
+  height: 10px;
+  width: 10px;
+  border-left: 2px solid rgb(240, 227, 227);
+  border-top: 2px solid rgb(240, 227, 227);
+  background: rgba(255, 255, 255, 0.25);
+  transition: all .1s linear;
+  border-top-left-radius: 5px;
+  margin-top: .3rem;
+  display: none;
+  margin-left: .8rem;
+  transform: rotate(-45deg);
+  position: absolute;
+  box-shadow: var(--box-shadow);
+}
+.tab-container{
+  width: 75%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,0%);
+  
+}
+.tabIcon{
+  width: 10%;
+}
+.tab-content{
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 0;
+  position: relative;
+  z-index: -9999;
+}
+.tab-container svg{
+  font-size: 1.4rem;
+  cursor: pointer;
+  color: #fff;
+  margin-bottom: 1rem;
+  margin-left: 1.2rem;
+}
 .inc-exp-container {
   background-color: #fff;
   box-shadow: var(--box-shadow);
   padding: 20px;
   display: flex;
   justify-content: space-between;
-  margin: 20px 0;
+  border-radius: 5px;
 }
 
 .inc-exp-container>div {
@@ -74,23 +184,23 @@ h4 {
 
 label {
   display: inline-block;
-  margin: 10px 0;
 }
 
 input[type='text'],
-input[type='number'] {
+input[type='number'],
+input[type='date'] {
   border: 1px solid #dedede;
   border-radius: 2px;
   display: block;
   font-size: 16px;
   padding: 10px;
   width: 100%;
+  border-radius: 5px;
 }
 
 .btn {
   cursor: pointer;
-  background-color: #9c88ff;
-  box-shadow: var(--box-shadow);
+  background: #333;
   color: #fff;
   border: 0;
   display: block;
@@ -98,13 +208,21 @@ input[type='number'] {
   margin: 10px 0 30px;
   padding: 10px;
   width: 100%;
+  border-radius: 5px;
+  transition: all .1s linear;
+}
+.btn:hover{
+  opacity: .8;
 }
 
 .btn:focus,
 .delete-btn:focus {
   outline: 0;
 }
-
+.tran-holder{
+  max-width: 500px;
+  overflow-x: hidden;
+}
 .list {
   list-style-type: none;
   padding: 0;
@@ -119,6 +237,7 @@ input[type='number'] {
   justify-content: space-between;
   position: relative;
   padding: 10px;
+  border-radius: 5px;
   margin: 10px 0;
 }
 
@@ -140,18 +259,908 @@ input[type='number'] {
   padding: 2px 5px;
   position: absolute;
   top: 50%;
-  left: 0;
-  transform: translate(-100%, -50%);
+  right: 0;
+  transform: translate(-400%, -50%);
   opacity: 0;
+  z-index: 999;
+  border-radius: 5px;
   transition: opacity 0.3s ease;
 }
-
-.list li:hover .delete-btn {
+.infor-btn{
+  cursor: pointer;
+    background-color: rgb(61, 61, 244);
+    border: 0;
+    color: #fff;
+    font-size: 20px;
+    line-height: 20px;
+    padding: 2px 9px;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translate(-480%, -50%);
+    opacity: 0;
+    z-index: 999;
+  border-radius: 5px;
+    transition: opacity 0.3s ease;
+}
+.list li:hover .delete-btn, .list li:hover .infor-btn {
   opacity: 1;
 }
+.popup-overlay{
+  background-color: rgba(23, 21, 21, 0.6);
+}
+.transDet{
+  max-width: 80%;
+  overflow-x: hidden;
+}
+.modal {
+  font-size: 12px;
+  width: 400px;
+  background-color: #ffbf66;
+  border-radius: 5px;
+  padding: 2rem;
+}
+.openner{
+  margin-bottom: 1rem;
+}
+.modal>.header {
+  width: 100%;
+  border-bottom: 1px solid gray;
+  font-size: 18px;
+  text-align: center;
+  padding: 5px;
+  margin-bottom: .5rem;
+}
 
-@media (max-width: 320px) {
-  .container {
-    width: 300px;
+.modal>.content {
+  width: 100%;
+  padding: 10px 5px;
+}
+
+.modal>.actions {
+  margin: auto;
+}
+.modal-inpZone{
+    width: 100%;
+    display: flex;
+    position: relative;
+}
+.modal-inputBox{
+  padding: .3rem 0;
+  margin-bottom: 1rem;
+  border: none;
+  outline: none;
+  flex: 3;
+}
+.modal-sm{
+  cursor: pointer;
+  height: 100%;
+  padding: .3rem .2rem;
+  border: none;
+    outline: none;
+    transition: all .1s linear;
+}
+.modal-sm:hover{
+  opacity: .9;
+}
+.modal>.actions {
+  width: 100%;
+  padding: 10px 5px;
+  text-align: center;
+}
+
+.modal>.close {
+  cursor: pointer;
+  position: absolute;
+  display: block;
+  padding: 2px 5px;
+  line-height: 20px;
+  right: -10px;
+  top: -10px;
+  font-size: 24px;
+  background: #ffffff;
+  border-radius: 18px;
+  border: 1px solid #cfcece;
+}
+.home-container{
+  text-align: center;
+}
+.home-actions{
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  margin-top: 2rem;
+}
+.icon-box{
+  margin: 2rem 0;
+}
+.icon-box > svg {
+  font-size: 6rem;
+  margin: 0;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.icon-holder{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.tab-content-container{
+  position: relative;
+  width: 87%;
+  margin: 0 auto;
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+}
+.home-left,.home-right{
+  flex: 1;
+}
+.home-right-content{
+  width: 80%;
+  border-radius: 5px;
+  border: 3px solid #fff;
+  text-align: center;
+  margin-top: 2rem;
+  margin-left: 1.5rem;
+  position: relative;
+  box-shadow: var(--box-shadow);
+}
+.home-left-content{
+  width: 80%;
+    border-radius: 5px;
+    border: 3px solid #fff;
+    text-align: center;
+    margin-top: 2rem;
+    margin-left: 2rem;
+    position: relative;
+  box-shadow: var(--box-shadow);
+}
+.home-right-content::after,.home-left-content::after{
+  content: "";
+  height: 0;
+  width: 101%;
+  bottom: 0%;
+  left: 0%;
+  background-color: #fff;
+  position: absolute;
+    transition: all .2s linear;
+} 
+.home-right-content::after{
+  left: -1%;
+}
+.home-right-content:hover::after,.home-left-content:hover::after{
+  height: 101%;
+}
+.home-right-content:hover .icon-box>svg,.home-left-content:hover .icon-box>svg{
+  color: #333;
+  position: relative;
+  z-index: 999;
+}
+.seperate{
+  height: 220px;
+  width: 1px;
+  background-color: rgb(208, 206, 206);
+}
+.header-end-btn{
+  padding: .8rem 2rem;
+  margin: 2rem auto;
+  background-color: transparent;
+  border: 3px solid #fff;
+  cursor: pointer;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 1rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  transition: all .1s linear;
+  box-shadow: var(--box-shadow);
+}
+.header-end-btn:hover{
+  background-color: #333;
+}
+.endLine,.cal-endLine{
+  height: 3px;
+  width: 50%;
+  background-color: #333;
+}
+.endLine{
+  margin: 3rem auto;
+}
+.cal-endLine{
+  position: absolute;
+  bottom: 8%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.tModal-header{
+  margin-top: 0;
+}
+.goal-Tab{
+  height: 600px;
+}
+.empty_list svg{
+  position: relative;
+  top: 50%;
+  left: 50%;
+}
+.empty_list h3,.goal-lead {
+  text-align: center;
+}
+.empty-btn,.cal-btn{
+  text-transform: uppercase;
+  background-color: transparent;
+  border: 3px solid #fff;
+  border-radius: 5px;
+  color: #fff;
+  box-shadow: var(--box-shadow);
+  cursor: pointer;
+  transition: all .1s linear;
+}
+.empty-btn:hover,.cal-btn:hover{
+  background-color: #333;
+}
+.goal-name,.goal-amount,.goal-start,.goal-dl{
+  margin: 1rem auto;
+}
+.show-counter{
+  display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+    padding: 0.5rem;
+    margin: 2rem 0;
+    border: 1px solid #ebebeb;
+    border-radius: 0.25rem;
+    text-decoration: none;
+    color: #000;
+    box-shadow: var(--box-shadow);
+}
+.show-counter .countdown {
+  line-height: 1.25rem;
+  padding: 0 0.75rem 0 0.75rem;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.show-counter .countdown.danger {
+  color: #ff0000;
+}
+
+.show-counter .countdown>p {
+  margin: 0;
+}
+
+.show-counter .countdown>span {
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+.parent-b{
+  box-shadow: var(--box-shadow);
+  margin: 2rem auto;
+  background-color: transparent;
+}
+.child-b{
+  display: flex;
+  align-items: center;
+}
+.fnish{
+  background-color:#2ecc71;
+}
+.unfnish{
+  background-color: #c0392b;
+}
+.goalBtn{
+  padding: 1rem 3rem;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  cursor: pointer;
+  color: #fff;
+  text-transform: uppercase;
+  transition: all .2s linear;
+  box-shadow: var(--box-shadow);
+}
+.goalBtn:hover{
+  opacity: .6;
+}
+.exit-btn{
+  background: transparent;
+  border: none;
+  outline: none;
+  position: absolute;
+  bottom: 30%;
+}
+.separate-tab{
+  margin-top: 2rem;
+}
+.update-inp{
+  width: 50%;
+}
+.goal-lead{
+  margin: 1rem 0 ;
+}
+.goal-btns{
+  display: flex;
+  position: relative;
+  justify-content: space-around;
+  left: 50%;
+  bottom: 50%;
+  transform: translate(-50%,250%);
+}
+@media (min-width: 300px) {
+  h1 {
+      font-size: 1rem;
+    }
+  
+    h3 {
+      font-size: .8rem;
+      margin: 20px 0 10px;
+    }
+  
+    h4 {
+      font-size: .5rem;
+    }
+  
+    label {
+      margin: 6px 0;
+      font-size: .7rem;
+    }
+  .tabIcon,.active{
+    margin-right: 1rem;
+  }
+    input[type='text'],
+    input[type='number'],
+    input[type='date'] {
+      padding: 4px 10px;
+    }
+  
+    .list {
+      height: 69%;
+    }
+  
+    .list li {
+      padding: 6px 10px;
+    }
+  
+    .transDet,
+    .transMon {
+      font-size: .7rem;
+    }
+  
+    .delete-btn,
+    .infor-btn {
+      line-height: 16px;
+    }
+  .infor-btn{
+    transform: translate(-345%, -50%);
+  }
+  .delete-btn{
+    transform: translate(-270%, -50%);
+  }
+    .inc-exp-container {
+      margin: 6px 0;
+    }
+  
+    .money {
+      font-size: 1rem;
+    }
+  
+    .outlet {
+      transform: translate(0%, -6%);
+    }
+    .home-container {
+      padding: 0 1rem;
+    }
+    .home-subhead {
+      margin-bottom: 1rem;
+    }
+        .home-left{
+          margin-bottom: 1rem;
+        }
+    .home-left,.home-right{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  .home-left h5,.home-right h5{
+    font-size: .8rem;
+    font-weight: normal;
+  }
+    .home-left-content,
+    .home-right-content{
+      width: 50%;
+      margin-left: 0;
+      margin-top: 1rem;
+    }
+  
+    .home-right-content {
+      margin-left: 0rem;
+    }
+  
+    .home-actions {
+      padding-bottom: 1rem;
+      display: flex;
+      flex-direction: column;
+      margin-top: 1rem;
+    }
+    .modal {
+      width: 250px;
+    }
+    .seperate {
+      display: none;
+    }
+    .endLine {
+      margin: 1rem auto;
+    }
+    .tab-container {
+      width: 88%;
+      top: 50%;
+      transform: translate(-50%, -55%);
+    }
+  
+    .glass-bg {
+      height: 400px;
+    }
+  .trans-list{
+    margin-top: 1rem;
+    width: 200px;
+  }
+    .tab-content-container {
+      width: 100%;
+    }
+  
+    .active::after {
+      display: none;
+    }
+  
+    .tab-container svg {
+      font-size: .9rem;
+    }
+  
+    .empty_list svg {
+      font-size: 6rem;
+      transform: translate(-70%, 70%);
+    }
+  
+    .parent-b {
+      height: 30px;
+    }
+  
+    .progress {
+      font-size: .8rem;
+      font-weight: 500;
+    }
+  
+    .empty-btn,.cal-btn {
+      padding: .6rem 1.2rem;
+    }
+  
+    .goalBtn {
+      padding: .6rem 2rem
+    }
+  
+    .icon-holder {
+      flex-direction: row;
+      z-index: -999;
+      max-width: 100%;
+    }
+    .react-calendar{
+      width: 200px !important;
+      line-height: .8rem !important;
+    }
+    .react-calendar__month-view__weekdays{
+      font-size: .5rem !important;
+    }
+    .react-calendar__tile{
+      font-size: .7rem;
+    }
+    .react-calendar__navigation button{
+      min-width: 36px !important;
+     }
+}
+@media (min-width:600px) {
+  h1 {
+      font-size: 1.2rem;
+    }
+  
+    h3 {
+      font-size: .9rem;
+      margin: 20px 0 10px;
+    }
+  
+    h4 {
+      font-size: .5rem;
+    }
+    .tabIcon,
+    .active {
+      margin-right: 0rem;
+    }
+    label {
+      margin: 6px 0;
+      font-size: .7rem;
+    }
+    input[type='text'],
+    input[type='number'],
+    input[type='date'] {
+      padding: 6px 10px;
+    }
+    .list {
+      height: 69%;
+    }
+    .list li {
+      padding: 6px 10px;
+    }
+    .transDet,
+    .transMon {
+      font-size: .7rem;
+    }
+    .delete-btn,
+    .infor-btn {
+      line-height: 16px;
+    }
+    .inc-exp-container {
+      margin: 6px 0;
+    }
+  
+    .money {
+      font-size: 1rem;
+    }
+  
+    .outlet {
+      transform: translate(0%, -6%);
+    }
+    .home-container {
+      padding:0;
+    }
+  
+    .home-subhead {
+      margin-bottom: 2rem;
+    }
+    .home-left {
+      margin-bottom: 0rem;
+    }
+    .home-left-content,
+    .home-right-content {
+      width: 65%;
+      margin-right: 1rem;
+      margin-top: 2rem;
+    }
+    .home-right-content{
+      margin-left: 2rem;
+    }
+    .home-actions {
+      padding-bottom: 1rem;
+      flex-direction: row;
+    }
+    .seperate {
+      display: block;
+      height: 160px;
+      width: 1px;
+      background-color: rgb(208, 206, 206);
+    }
+    .endLine{
+      margin: 3rem auto;
+    }
+        .trans-list {
+          margin-top: 0rem;
+        }
+    .tab-container {
+      width: 88%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+  .modal{
+    width: 400px;
+  }
+    .glass-bg {
+      height: 400px;
+    }
+  
+    .tab-content-container {
+      width: 100%;
+    }
+  
+    
+    .tab-container svg {
+      font-size: 1.2rem;
+    }
+    .empty_list svg {
+      font-size: 6rem;
+      transform: translate(-70%, 70%);
+    }
+    .parent-b {
+      height: 30px;
+    }
+    .progress {
+      font-size: .8rem;
+      font-weight: 500;
+    }
+    .empty-btn,.cal-btn {
+      padding: .6rem 1.2rem;
+    }
+    .goalBtn {
+      padding: .6rem 2rem
+    }
+    .icon-holder{
+
+      flex-direction: row;
+    }
+.react-calendar {
+  width: 350px !important;
+  line-height: 1.125rem !important;
+}
+
+.react-calendar__month-view__weekdays {
+  font-size: .7rem !important;
+}
+
+.react-calendar__tile {
+  font-size: .8rem;
+}
+
+.react-calendar__navigation button {
+  min-width: 44px !important;
+}
+}
+@media (min-width: 768px) {
+  h1 {
+      font-size: 1.4rem;
+    }
+  
+    h3 {
+      font-size: 1rem;
+      margin: 20px 0 10px;
+    }
+  
+    h4 {
+      font-size: .6rem;
+    }
+  
+    label {
+      margin: 6px 0;
+      font-size: .8rem;
+    }
+    input[type='text'],
+    input[type='number'],
+    input[type='date'] {
+      padding:8px 10px;
+    }
+    .list {
+      height: 75%;
+    }
+    .list li {
+      padding: 8px 10px;
+    }
+    .transDet,
+    .transMon {
+      font-size: .8rem;
+    }
+    .trans-list{
+      width: unset;
+    }
+    .delete-btn,
+    .infor-btn {
+      line-height: 18px;
+    }
+    .inc-exp-container {
+      margin: 10px 0;
+    }
+  .money{
+    font-size: 1rem;
+  }
+    .outlet {
+      transform: translate(0%, -44%);
+    }
+  
+    .home-header {
+      margin-bottom: 1rem;
+    }
+  
+  .home-left-content,.home-right-content{
+    width: 75%;
+  }
+    .home-actions {
+      padding-bottom: 2rem;
+    }
+    .seperate {
+      height: 220px;
+      width: 1px;
+      background-color: rgb(208, 206, 206);
+    }
+    .tab-container {
+      width: 88%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+  
+    .glass-bg {
+      height: 435px;
+    }
+  
+    .tab-content-container {
+      width: 84%;
+    }
+  
+    .tab-container svg {
+      font-size: 1.4rem;
+    }
+    .empty_list svg {
+      font-size: 6rem;
+      transform: translate(-70%, 70%);
+    }
+    .parent-b {
+      height: 40px;
+    }
+    .progress {
+      font-size: .9rem;
+      font-weight: 700;
+    }
+    .empty-btn,.cal-btn {
+      padding: .8rem 1.6rem;
+    }
+        .icon-holder {
+          max-width: 20%;
+          flex-direction: column;
+        }
+        .goalBtn {
+          padding: .8rem 2.4rem
+        }
+  .icon-box > svg {
+    font-size: 4rem;
+  }
+}
+@media (min-width: 1024px) {
+  h1 {
+      font-size: 1.6rem;
+    }
+  
+    h3 {
+      font-size: 1.2rem;
+      margin: 35px 0 10px;
+    }
+  
+    h4 {
+      font-size: .8rem;
+    }
+  
+    label {
+      margin: 10px 0;
+      font-size: 1rem;
+    }
+    .list{
+          height: 100%;
+        }
+    .list li {
+      padding: 10px;
+    }
+    .transDet,.transMon{
+      font-size: 1rem;
+    }
+  .delete-btn,.infor-btn{
+    line-height: 20px;
+  }
+     .infor-btn {
+       transform: translate(-480%, -50%);
+     }
+  
+     .delete-btn {
+       transform: translate(-400%, -50%);
+     }
+    .outlet {
+      transform: translate(0%, -36%);
+    }
+  
+    .home-header {
+      margin-bottom: 2rem;
+    }
+  
+    .home-subhead {
+      margin-bottom: 4rem;
+    }
+  
+    .home-actions {
+      padding-bottom: 3rem;
+    }
+    .tab-container {
+      width: 75%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+  
+    .glass-bg {
+      height: 540px;
+    }
+  
+    .tab-content-container {
+      width: 84%;
+    }
+  
+    .empty_list svg {
+      font-size: 10rem;
+      transform: translate(-60%, 60%);
+    }
+    .parent-b {
+      height: 50px;
+    }
+    .progress{
+      font-size: 1rem;
+      font-weight: 900;
+    }
+  .goalBtn{
+    padding: 1rem 3rem
+  }
+    .empty-btn,.cal-btn {
+      padding: 1rem 2rem;
+    }
+    .icon-box>svg {
+      font-size: 6rem;
+    }
+    .react-calendar {
+      width: 500px !important;
+      line-height: 1.5rem !important;
+    }
+  
+    .react-calendar__month-view__weekdays {
+      font-size: 1rem !important;
+    }
+  
+    .react-calendar__tile {
+      font-size: 1rem;
+    }
+  
+    .react-calendar__navigation button {
+      min-width: 50px !important;
+    }
+    .react-calendar__navigation__label__labelText{
+      font-size: 1.5rem;
+    }
+}
+@media (min-width: 1280px) {
+  h1 {
+    font-size: 2rem;
+  }
+  
+  h3 {
+    font-size: 1.2rem;
+    margin: 40px 0 10px;
+  }
+  
+  h4 {
+    font-size: 1rem;
+  }
+  .inc-exp-container {
+    margin: 20px 0;
+  }
+  .outlet{
+    transform: translate(0%,-33%);
+  }
+  .home-actions{
+    padding-bottom: 3rem;
+  }
+  .tab-container {
+    width: 75%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+  } 
+  .glass-bg{
+    height: 582px;
+  }
+  .tab-content-container{
+    width: 87%;
+  }
+  .empty_list svg {
+    font-size: 10rem;
+    transform: translate(-60%, 60%);
+  }
+  .empty-btn,.cal-btn {
+    padding: 1rem 2rem;
   }
 }

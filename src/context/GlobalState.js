@@ -1,7 +1,10 @@
 import React,{createContext,useReducer} from "react";
 import AppReducer from './AppReducer'
+const storageTrans = JSON.parse(localStorage.getItem('transactions'))
+const storageGoals = JSON.parse(localStorage.getItem('goals'))
 const initialState = {
-    transactions : []
+    transactions:storageTrans??[],
+    goals:storageGoals??[],
 }
 
 export const GlobalContext = createContext(initialState)
@@ -19,11 +22,34 @@ export const GlobalProvider = ({children}) =>{
             type:'ADD_TRANSACTION',
             payload:transaction
         })
+        
+    }
+    function addGoal (goal){
+        dispatch({
+            type:'ADD_GOAL',
+            payload:goal
+        })
+    }
+    function deleteGoal (id){
+        dispatch({
+            type:'DELETE_GOAL',
+            payload:id
+        })
+    }
+    function updateTrans (id,value){
+        dispatch({
+            type:'UPDATE_TRAN',
+            payload:{id,value}
+        })
     }
     return (<GlobalContext.Provider value={{
         transactions:state.transactions,
+        goals:state.goals,
         deleteTransaction,
-        addTransaction
+        addTransaction,
+        addGoal,
+        deleteGoal,
+        updateTrans
     }}>
         {children}
     </GlobalContext.Provider>)

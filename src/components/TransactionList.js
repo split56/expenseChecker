@@ -1,15 +1,15 @@
-import React,{useContext} from 'react'
+import React,{useContext,useEffect} from 'react'
 import { GlobalContext } from '../context/GlobalState'
 import Transaction from './Transaction'
 function TransactionList() {
     const {transactions} = useContext(GlobalContext)
     return (
-        <div>
-            <h3>History</h3>
+        <div className='trans-list'>
+            <h3 className='history-title'>History</h3>
             <ul id="list" className="list">
-                {transactions.map((transaction)=>(
+                {transactions.length > 0 ? transactions.map((transaction)=>(
                     <Transaction key={transaction.id} transaction={transaction} />
-                ))}
+                )) : <h4>Your list is empty !</h4>}
             </ul>
         </div>
     )

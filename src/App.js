@@ -6,16 +6,13 @@ import TransactionList from './components/TransactionList';
 import AddTransaction from './components/AddTransaction';
 import { GlobalProvider } from './context/GlobalState';
 import './App.css';
-
+import Tab from './components/Tabs/Tab';
 function App() {
   return (
     <GlobalProvider >
-      <Header/>
-      <div className='container'>
-        <Balance/>
-        <InEx/>
-        <TransactionList/>
-        <AddTransaction/>
+      <div className='bg-holder'>
+        {/* <Header/> */}
+        <Tab/>
       </div>
     </GlobalProvider>
   );
